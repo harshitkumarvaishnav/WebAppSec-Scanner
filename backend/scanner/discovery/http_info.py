@@ -1,30 +1,24 @@
-import requests
-import time
+"""
+http_info.py
+
+Purpose:
+Extract HTTP information from an existing Response object.
+"""
 
 
-def get_http_info(url: str):
-
-    start = time.time()
+def get_http_info(response, response_time):
 
     try:
-
-        response = requests.get(
-            url,
-            timeout=10,
-            allow_redirects=True
-        )
-
-        elapsed = round(time.time() - start, 3)
 
         return {
 
             "status_code": response.status_code,
 
-            "response_time": f"{elapsed} sec",
+            "response_time": f"{response_time:.3f} sec",
 
             "server": response.headers.get("Server", "Unknown"),
 
-            "content_type": response.headers.get("Content-Type"),
+            "content_type": response.headers.get("Content-Type", "Unknown"),
 
             "content_length": response.headers.get(
                 "Content-Length",

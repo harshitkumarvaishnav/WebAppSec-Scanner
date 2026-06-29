@@ -1,4 +1,10 @@
-import requests
+"""
+security_headers.py
+
+Purpose:
+Extract security headers from an existing HTTP response.
+"""
+
 
 SECURITY_HEADERS = [
     "Content-Security-Policy",
@@ -10,22 +16,19 @@ SECURITY_HEADERS = [
 ]
 
 
-def get_security_headers(url):
+def get_security_headers(response):
 
     try:
 
-        response = requests.get(url, timeout=10)
-
-        result = {}
+        headers = {}
 
         for header in SECURITY_HEADERS:
 
             if header in response.headers:
-                result[header] = response.headers[header]
-            else:
-                result[header] = "Missing"
 
-        return result
+                headers[header] = response.headers[header]
+
+        return headers
 
     except Exception as e:
 
